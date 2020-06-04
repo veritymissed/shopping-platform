@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Shopping platform stack" />
+  <title>Shopping Platform Stack</title>
+
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- fontawsome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" charset="utf-8"></script>
+
+  <!--Quill -  Include stylesheet -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <!-- <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div> -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Shopping Platform Stack</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="/products">所有商品</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/shops">所有商家</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/shopping-cart">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Create the editor container -->
+    <!-- <div id="editor">
+      <p>Hello World!</p>
+      <p>Some initial <strong>bold</strong> text</p>
+      <p><br></p>
+    </div> -->
+
+    <div class="row">
+      <form class="container">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <img name="image-display" src="https://i.picsum.photos/id/216/220/220.jpg" class="card-img" alt="">
+              <input type="file" accept="image/*" name="inputImage" value=""
+              style="display: none">
+              <div class="card-img-overlay">
+                <a href="#" class="btn btn-secondary" id="change-photo">Cahnge photo</a>
+                <button type="button" class="btn btn-light"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="display_department">商品分類</label>
+              <input class="form-control" name="display_department" type="text" value="Motor">
+            </div>
+            <div class="form-group">
+              <label for="display_name">商品名稱</label>
+              <input class="form-control" name="display_name" type="text" value="YAMAHA MT-07">
+            </div>
+            <div class="form-group">
+              <label for="display_material">商品材質</label>
+              <input class="form-control" name="display_material" type="text" value="金屬">
+            </div>
+            <div class="form-group">
+              <label for="display_price">價格</label>
+              <input class="form-control" name="display_price" type="price" value="138000">
+            </div>
+            <div class="form-group">
+              <label for="display_about">商品描述</label>
+              <input name="about" type="hidden">
+              <div id="editor-container">
+                <p>MT-07 2015 ABS 公司車，超好騎。通勤首選紅牌、省油、保養便宜。</p>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-info btn-block">刊登商品</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+
+  </div>
+
+<!-- <script src="/javascripts/products.js" charset="utf-8"></script> -->
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script type="text/babel">
+  var quill = new Quill('#editor-container', {
+    modules: {
+      toolbar: [
+        ['bold', 'italic'],
+        ['link', 'blockquote', 'image'],
+        [{ list: 'ordered' }, { list: 'bullet' }]
+      ]
+    },
+    placeholder: '輸入商品簡介',
+    theme: 'snow'
+  });
+
+  var form = document.querySelector('form');
+  form.onsubmit = function(e) {
+    e.preventDefault()
+    // Populate hidden form on submit
+    var about = document.querySelector('input[name=about]');
+    about.value = JSON.stringify(quill.getContents());
+
+    console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+    var selectedFile = document.querySelector('input[name=inputImage]').files[0];
+    // console.log("selectedFile", selectedFile);
+
+    // No back end to actually submit to!
+    // alert('Open the console to see the submit data!')
+
+    var uploadEle = fileElem = document.querySelector('input[name=inputImage]')
+    console.log("uploadEle", uploadEle.files[0]);
+
+    // const formData = new FormData();
+    // formData.append('photo', uploadEle)
+    // console.log(formData.get('photo'));
+    // fetch('/image/upload', {
+    //   method: 'PUT',
+    //   body: JSON.stringify(formData)
+    // })
+
+    fetch('/product', {
+      method: 'POST',
+      body: $(form).serializeArray()
+    })
+    .then((response) => response.json())
+    .then((res)=>{
+      console.log("FUCK res", res);
+    })
+
+    return false;
+  };
+
+  var changePhotoItem = document.querySelector('#change-photo')
+  var fileElem = document.querySelector('input[name=inputImage]')
+  changePhotoItem.addEventListener("click", function (e) {
+    if (fileElem) {
+      fileElem.click();
+    }
+    e.preventDefault(); // prevent navigation to "#"
+  }, false);
+
+  fileElem.addEventListener('change', function(e) {
+    if (this.files.length === 0 ) return
+    var file = this.files[0]
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = function(e) {
+      document.querySelector('img[name=image-display]').src = reader.result
+    }
+    this.reader = reader
+  })
+
+</script>
+<!-- <script src="/javascripts/product-editor.js" charset="utf-8"></script> -->
+</body>
+
+</html>
